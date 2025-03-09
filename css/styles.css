@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'ChineseRocks';
+  src: url('../fonts/chineserocksrg.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --IRIS: #4d5ae5;
   --NAVYBLUE: #2e2f42;
@@ -22,6 +29,10 @@ h6 {
 }
 
 /* Global styles */
+
+.font-chineserocks {
+  font-family: 'ChineseRocks', 'Roboto', sans-serif;
+}
 
 body {
   font-family: Roboto, sans-serif;
@@ -101,9 +112,39 @@ h2 {
   margin-bottom: 72px;
 }
 
+/* Animations */
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes heroTextReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
 /* Start of Header */
 
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--WHITE); /* ensures background is visible */
   border-bottom: 1px solid var(--CORNFLOWER);
 }
 
@@ -170,15 +211,74 @@ header {
   font-size: 18px;
   font-family: Raleway;
   font-weight: 800;
-  margin-bottom: 0px;
   line-height: 21px;
   letter-spacing: 0.54px;
   display: flex;
+  align-items: center; /* ⬅️ Ensures vertical alignment */
   margin-right: 56px;
+  gap: 8px; /* spacing between image and text */
 }
-.logo span {
+
+.logo-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  animation: logoEntrance 0.8s ease-out forwards;
+}
+
+.logo-img:hover {
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 0 6px #cc1f1a); /* 🔥 Red glow */
+}
+
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo-img {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/*.logo span {
   color: var(--IRIS);
+}*/
+
+
+/* LAS ISLAS FILIPINAS TEXT*/
+.logo-text {
+  font-family: Raleway, sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
+
+.logo-blue {
+  color: #234fa1;
+  -webkit-text-stroke: 0.3px black;
+  text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.3);
+}
+
+.logo-red {
+  color: #cc1f1a;
+  -webkit-text-stroke: 0.3px black;
+  text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.3);
+}
+
+
 
 .main-navigation-menu {
   padding: 24px 0;
@@ -449,88 +549,57 @@ header {
 }
 
 .hero-section {
+  min-height: 90vh; /* ⬅️ reduced height */
+  margin-top: 72px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
   background-color: var(--NAVYBLUE);
-  padding: 112px 0;
   background-image: linear-gradient(
       to right,
       rgba(46, 47, 66, 0.7),
       rgba(46, 47, 66, 0.7)
     ),
-    url(../images/hero-bg.png);
-  background-repeat: no-repeat;
-  background-position: center;
+    url(../images/rdr-bg.jpg);
   background-size: cover;
-
-  @media screen and (min-width: 768px) {
-    background-image: unset;
-  }
-
-  @media (min-device-pixel-ratio: 2),
-    (min-resolution: 192dpi),
-    (min-resolution: 2dppx) {
-    background-image: url(../images/dark-hero-bg.png),
-      url(../images/hero-bg-m@2x.jpg),
-      linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7));
-  }
-
-  @media screen and (min-width: 768px) {
-    padding: 112px 0;
-    background-image: url(../images/dark-hero-bg.png),
-      url(../images/hero-bg-t.jpg),
-      linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7));
-
-    @media (min-device-pixel-ratio: 2),
-      (min-resolution: 192dpi),
-      (min-resolution: 2dppx) {
-      background-image: url(../images/dark-hero-bg.png),
-        url(../images/hero-bg-t@2x.jpg),
-        linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7));
-    }
-  }
-
-  @media screen and (min-width: 1158px) {
-    padding: 188px 0;
-    background-image: url(../images/dark-hero-bg.png),
-      url(../images/hero-bg-d.jpg),
-      linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7));
-    background-size: 1440px, 1440px;
-
-    @media (min-device-pixel-ratio: 2),
-      (min-resolution: 192dpi),
-      (min-resolution: 2dppx) {
-      background-image: url(../images/dark-hero-bg.png),
-        url(../images/hero-bg-d@2x.jpg),
-        linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7));
-    }
-  }
-
-
-
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
+
 
 .title-text {
   color: var(--WHITE, #fff);
   font-weight: 700;
-  font-size: 36px;
-  line-height: 40px;
+  font-family: 'ChineseRocks', 'Roboto', sans-serif;
+  font-size: clamp(2rem, 6vw, 5rem);
+  line-height: 1.1;
   letter-spacing: 0.72px;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   margin-bottom: 48px;
-
-  @media screen and (min-width: 768px) {
-    font-size: 56px;
-    line-height: 60px;
-    letter-spacing: 1.12px;
-  }
-
-  @media screen and (min-width: 1158px) {
-    font-size: 56px;
-    line-height: 60px;
-    letter-spacing: 1.12px;
-  }
+  text-align: center;
 }
+
+.title-text span {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroTextReveal 0.6s ease-out forwards;
+}
+
+.title-text span:nth-child(1) {
+  animation-delay: 0.4s;
+}
+
+.title-text span:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
 
 .btn:hover,
 .btn:focus {
